@@ -29,7 +29,7 @@ public class conexionPostgresql {
 	 * @param db
 	 * @param user
 	 * @param pass
-	 * @return 
+	 * @return Conexión a postgreSQL, null si no es válida, y la correspondiente si sí lo es.
 	 */
 	public Connection generaConexion(final String host, final String port, final String db, final String user, final String pass) {
 
@@ -56,6 +56,9 @@ public class conexionPostgresql {
             //Conexión a la base de datos en PostgreSQL y validación de esta
             conexion = DriverManager.getConnection(url, user, pass);           
             boolean esValida = conexion.isValid(50000);
+            if(esValida == false) {
+            	conexion = null;
+            }
             System.out.println(esValida ? "[INFORMACIÓN-conexionPostgresql-generaConexion] Conexión a PostgreSQL válida" : "[ERROR-conexionPostgresql-generaConexion] Conexión a PostgreSQL no válida");
             return conexion;
             
